@@ -25,14 +25,6 @@ requirements:
 test:
   imports:
     - terminado
-  requires:
-    - nose
-    - posix  # [win]
-
-  commands:
-    # Failing test on osx: https://github.com/conda-forge/staged-recipes/pull/313#issuecomment-208426267
-    # Tests are passing but hangs at the end on Wnidow :-/
-    - nosetests terminado  # [not (osx or win)]
 
 about:
   home: https://github.com/jupyter/terminado
