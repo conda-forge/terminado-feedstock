@@ -5,26 +5,37 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: 7ceea4c1644b0e95588d1d2ba09c5bf365b318c26d0a13ef6a5f2751a2f6efa3
+  - url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
+    sha256: 7ceea4c1644b0e95588d1d2ba09c5bf365b318c26d0a13ef6a5f2751a2f6efa3
+  # TODO: remove when available upstream
+  - url: https://raw.githubusercontent.com/jupyter/terminado/{{ version }}/LICENSE
+    sha256: b7f40d8937cf1bde1d5b2d2e7df9b6fde4e558dcb3128ae7a0126c3298ba1be8
 
 build:
   number: 0
-  script: {{ PYTHON }} setup.py install
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
+    - flit
+    - pip
     - python
-    - setuptools
   run:
     - python
     - ptyprocess  # [not win]
-    - pywinpty  # [win]
+    - pywinpty >=0.5  # [win]
     - tornado >=4
 
 test:
+  requires:
+    - pip
+    - pytest
+    - pytest-cov
   imports:
     - terminado
+  commands:
+    - python -m pip check
+    - pytest --pyargs terminado --cov terminado
 
 about:
   home: https://github.com/jupyter/terminado
@@ -32,11 +43,10 @@ about:
   license_file: LICENSE
   summary: Terminals served by tornado websockets
   description: |
-    Terminado is a Tornado websocket backend for the term.js Javascript
-    terminal emulator library.
+    This is a Tornado websocket backend for the Xterm.js Javascript terminal emulator library.
   doc_url: http://terminado.readthedocs.org/en/latest/
-  doc_source_url: https://github.com/takluyver/terminado/blob/master/doc/index.rst
-  dev_url: https://github.com/takluyver/terminado
+  doc_source_url: https://github.com/jupyter/terminado/blob/master/doc/index.rst
+  dev_url: https://github.com/jupyter/terminado
 
 extra:
   recipe-maintainers:
