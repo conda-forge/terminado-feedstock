@@ -19,10 +19,10 @@ requirements:
   host:
     - flit
     - pip
-    - python
+    - python >=3.6
   run:
-    - python
     - ptyprocess  # [not win]
+    - python >=3.6
     - pywinpty >=0.5  # [win]
     - tornado >=4
 
