@@ -30,6 +30,7 @@ requirements:
 test:
   requires:
     - pip
+    - posix  # [win]
     - pytest
     - pytest-cov
   imports:
