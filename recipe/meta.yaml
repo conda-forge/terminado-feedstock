@@ -29,8 +29,9 @@ requirements:
 
 {% set skips = "" %}
 # TODO: investigate upstream
-{% set skips = "-k 'not single_process'" %}  # [win and py37]
-{% set skips = "-k 'not (namespace or basic_command)'" %}  # [win and py38]
+{% set skips = "-k 'not (single_process)'" %}  # [win and py36]
+{% set skips = "-k 'not (single_process or max_terminals)'" %}  # [win and py37]
+{% set skips = "-k 'not (single_process or namespace or basic_command)'" %}  # [win and py38]
 
 test:
   requires:
