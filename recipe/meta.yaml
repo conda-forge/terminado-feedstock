@@ -13,16 +13,17 @@ source:
 
 build:
   number: 0
+  skip: true  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
     - flit
     - pip
-    - python >=3.6
+    - python
   run:
     - ptyprocess  # [not win]
-    - python >=3.6
+    - python
     - pywinpty >=0.5  # [win]
     - tornado >=4
 
