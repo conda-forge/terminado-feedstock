@@ -23,7 +23,7 @@ skips = []
 if platform == "win32":
     skips += ["max_terminals", "single_process", "namespace", "basic_command"]
 elif platform == "darwin":
-    skips += ["max_terminals"]
+    skips += ["max_terminals", "single_process"]
 
 if not skips:
     print("all tests will be run", flush=True)
