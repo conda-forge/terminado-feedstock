@@ -13,15 +13,14 @@ py_major = sys.version_info[:2]
 
 loader = pkgutil.get_loader("terminado.tests")
 test_path = os.path.dirname(loader.path)
-pytest_args = [sys.executable, "-m", "pytest", test_path, "-vv", "--cov", "terminado"]
+pytest = [sys.executable, "-m", "pytest"]
+pytest_args = ["-o", "junit_family=xunit2", "-vv", "--cov", "terminado", test_path]
 
 skips = []
 
 if platform == "win32":
-    skips += ["single_process", "namespace"]
+    skips += ["single_process", "namespace", "max_terminals"]
 
-    if py_major == (3, 7):
-        skips += ["max_terminals"]
     if py_major == (3, 8):
         skips += ["basic_command"]
 
@@ -33,7 +32,8 @@ elif len(skips) == 1:
 else:
     pytest_args += ["-k", "not ({})".format(" or ".join(skips))]
 
-print("Final pytest args for", platform, py_major, ":\n", " ".join(pytest_args), flush=True)
+print("Final pytest args for", platform, py_major)
+print(" ".join([*pytest, *pytest_args]), flush=True)
 
 # actually run the tests
-sys.exit(subprocess.call(pytest_args))
+sys.exit(subprocess.call([*pytest, *pytest_args]))

@@ -29,6 +29,7 @@ test:
     - pip
     - posix  # [win]
     - pytest
+    - pytest-azurepipelines
     - pytest-cov
   imports:
     - terminado
