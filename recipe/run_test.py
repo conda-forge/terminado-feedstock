@@ -3,21 +3,21 @@
     this is needed because `--pyargs` is not compatible with `-k` for
     function/method-based names
 """
-import json
 import os
-import platform
 import sys
 import pkgutil
-import pytest
+import subprocess
 
+platform = sys.platform
 py_major = sys.version_info[:2]
 
 loader = pkgutil.get_loader("terminado.tests")
-pytest_args = [os.path.dirname(loader.path), "-vv", "--cov", "terminado"]
+test_path = os.path.dirname(loader.path)
+pytest_args = [sys.executable, "-m", "pytest", test_path, "-vv", "--cov", "terminado"]
 
 skips = []
 
-if sys.platform.startswith("win"):
+if platform == "win32":
     skips += ["single_process"]
 
     if py_major == (3, 7):
@@ -33,7 +33,7 @@ elif len(skips) == 1:
 else:
     pytest_args += ["-k", "not ({})".format(" or ".join(skips))]
 
-print("Final pytest args:\n", " ".join(pytest_args), flush=True)
+print("Final pytest args for", platform, py_major, ":\n", " ".join(pytest_args), flush=True)
 
 # actually run the tests
-sys.exit(pytest.main(pytest_args))
+sys.exit(subprocess.call(pytest_args))
