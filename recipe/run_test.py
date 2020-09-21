@@ -18,12 +18,12 @@ pytest_args = [sys.executable, "-m", "pytest", test_path, "-vv", "--cov", "termi
 skips = []
 
 if platform == "win32":
-    skips += ["single_process"]
+    skips += ["single_process", "namespace"]
 
     if py_major == (3, 7):
         skips += ["max_terminals"]
     if py_major == (3, 8):
-        skips += ["namespace", "basic_command"]
+        skips += ["basic_command"]
 
 if not skips:
     print("all tests will be run", flush=True)
