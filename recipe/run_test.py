@@ -10,6 +10,8 @@ import sys
 import pkgutil
 import pytest
 
+py_major = sys.version_info[:2]
+
 loader = pkgutil.get_loader("terminado.tests")
 pytest_args = [os.path.dirname(loader.path), "-vv", "--cov", "terminado"]
 
@@ -18,9 +20,9 @@ skips = []
 if sys.platform.startswith("win"):
     skips += ["single_process"]
 
-    if sys.version_info == (3, 7):
+    if py_major == (3, 7):
         skips += ["max_terminals"]
-    if sys.version_info == (3, 8):
+    if py_major == (3, 8):
         skips += ["namespace", "basic_command"]
 
 if not skips:
