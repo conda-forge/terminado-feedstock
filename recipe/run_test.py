@@ -20,10 +20,11 @@ pytest_args = ["-o", "junit_family=xunit2", "-vv", *cov_args, test_path]
 skips = []
 
 # flaky tests
-if platform == "win32":
+if platform != "linux":
     skips += ["max_terminals", "single_process", "namespace", "basic_command"]
-elif platform == "darwin":
-    skips += ["max_terminals", "single_process"]
+
+if platform == "darwin":
+    skips += ["unique_processes"]
 
 if not skips:
     print("all tests will be run", flush=True)
