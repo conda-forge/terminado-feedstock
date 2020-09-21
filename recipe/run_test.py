@@ -14,7 +14,8 @@ py_major = sys.version_info[:2]
 loader = pkgutil.get_loader("terminado.tests")
 test_path = os.path.dirname(loader.path)
 pytest = [sys.executable, "-m", "pytest"]
-pytest_args = ["-o", "junit_family=xunit2", "-vv", "--cov", "terminado", test_path]
+cov_args = ["–no-coverage-upload", "--cov", "terminado"]
+pytest_args = ["-o", "junit_family=xunit2", "-vv", *cov_args, test_path]
 
 skips = []
 
