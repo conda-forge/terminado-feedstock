@@ -22,14 +22,16 @@ skips = []
 
 # flaky tests
 if platform != "linux":
-    skips += ["max_terminals", "single_process", "namespace", "basic_command"]
-
-if platform == "darwin":
-    skips += ["unique_processes"]
+    skips += [
+        "basic_command",
+        "max_terminals",
+        "namespace",
+        "single_process",
+        "unique_processes"
+    ]
 
 if "aarch64" in target_platform:
     skips += ["max_terminals"]
-
 
 if not skips:
     print("all tests will be run", flush=True)
