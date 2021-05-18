@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<36 or py>=39]
+  skip: true  # [py<36]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -24,7 +24,7 @@ requirements:
   run:
     - ptyprocess  # [not win]
     - python
-    - pywinpty >=0.5,<1  # [win]
+    - pywinpty >=1.1  # [win]
     - tornado >=4
 
 test:
