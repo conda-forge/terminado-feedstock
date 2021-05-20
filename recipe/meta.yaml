@@ -1,4 +1,4 @@
-{% set version = "0.9.5" %}
+{% set version = "0.10.0" %}
 
 package:
   name: terminado
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: 54c22cfb47cf79d4ff4ed2e7b5f8f98ecc28d0830f980465b6e04cf09cf553cf
+  sha256: 46fd07c9dc7db7321922270d544a1f18eaa7a02fd6cd4438314f27a687cabbea
 
 build:
   number: 0
-  skip: true  # [py<36 or py>=39]
+  skip: true  # [py<36]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -24,7 +24,7 @@ requirements:
   run:
     - ptyprocess  # [not win]
     - python
-    - pywinpty >=0.5,<1  # [win]
+    - pywinpty >=1.1  # [win]
     - tornado >=4
 
 test:
