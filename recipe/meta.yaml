@@ -21,6 +21,7 @@ requirements:
     - flit
     - pip
     - python
+    - tornado >=4
   run:
     - ptyprocess  # [not win]
     - python
