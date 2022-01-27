@@ -1,4 +1,4 @@
-{% set version = "0.12.1" %}
+{% set version = "0.13.1" %}
 
 package:
   name: terminado
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: b20fd93cc57c1678c799799d117874367cc07a3d2d55be95205b1a88fa08393f
+  sha256: 5b82b5c6e991f0705a76f961f43262a7fb1e55b093c16dca83f16384a7f39b7b
 
 build:
-  number: 1
-  skip: true  # [py<36]
+  number: 0
+  skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -21,6 +21,7 @@ requirements:
     - flit
     - pip
     - python
+    - tornado >=4
   run:
     - ptyprocess  # [not win]
     - python
@@ -37,7 +38,7 @@ test:
     - terminado
   commands:
     # see run_test.py for more
-    - python -m pip check
+    - pip check
 
 about:
   home: https://github.com/jupyter/terminado

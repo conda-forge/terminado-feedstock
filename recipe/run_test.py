@@ -11,12 +11,16 @@ import subprocess
 platform = sys.platform
 target_platform = os.environ["target_platform"]
 py_major = sys.version_info[:2]
+pypy = "__pypy__" in sys.builtin_module_names
 
 loader = pkgutil.get_loader("terminado.tests")
 test_path = os.path.dirname(loader.path)
 pytest = [sys.executable, "-m", "pytest"]
-cov_args = ["--cov", "terminado", "--no-cov-on-fail"]
-pytest_args = ["-vv", *cov_args, test_path]
+pytest_args = [test_path, "-vv"]
+
+if not pypy:
+    pytest_args += ["--cov", "terminado", "--no-cov-on-fail"]
+
 
 skips = []
 
