@@ -38,7 +38,7 @@ test:
     - terminado
   commands:
     # see run_test.py for more
-    - python -m pip check
+    - pip check
 
 about:
   home: https://github.com/jupyter/terminado
