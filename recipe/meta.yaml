@@ -26,7 +26,7 @@ requirements:
     {% if noarch_platform == "win" %}
     - ptyprocess
     {% endif %}
-    - python >= 3.7
+    - python >=3.7
     {% if noarch_platform != "win" %}
     - pywinpty >=1.1.0
     {% endif %}
