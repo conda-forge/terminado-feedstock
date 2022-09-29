@@ -32,8 +32,9 @@ test:
   requires:
     - pip
     - posix  # [win]
-    - pytest
+    - pytest >=6.0
     - pytest-cov
+    - pytest-timeout
   imports:
     - terminado
   commands:
