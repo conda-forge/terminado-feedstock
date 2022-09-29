@@ -1,4 +1,4 @@
-{% set version = "0.15.0" %}
+{% set version = "0.16.0" %}
 
 package:
   name: terminado
@@ -6,40 +6,47 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: ab4eeedccfcc1e6134bfee86106af90852c69d602884ea3a1e8ca6d4486e9bfe
+  sha256: fac14374eb5498bdc157ed32e510b1f60d5c3c7981a9f5ba018bb9a64cec0c25
 
 build:
+  noarch: python
   number: 0
-  skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
-  build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
-    - flit
+    - hatchling >=1.5
     - pip
-    - python
+    - python >=3.7
     - tornado >=4
-    - hatchling >=0.2
   run:
-    - ptyprocess  # [not win]
-    - python
-    - pywinpty >=1.1.0  # [win]
+    - __{{ noarch_platform }}
+    {% if noarch_platform != "win" %}
+    - ptyprocess
+    {% endif %}
+    - python >=3.7
+    {% if noarch_platform == "win" %}
+    - pywinpty >=1.1.0
+    {% endif %}
     - tornado >=6.1.0
 
 test:
   requires:
+    - __{{ noarch_platform }}
     - pip
-    - posix  # [win]
-    - pytest
+    {% if noarch_platform == "win" %}
+    - posix
+     {% endif %}
+    - pytest >=6.0
     - pytest-cov
+    - pytest-timeout
   imports:
     - terminado
   commands:
     # see run_test.py for more
     - pip check
+    - pip list
+    - pip list | grep -iE "terminado\s*{{ version.replace(".", "\.") }}"
 
 about:
   home: https://github.com/jupyter/terminado
