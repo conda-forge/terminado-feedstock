@@ -23,11 +23,11 @@ requirements:
     - tornado >=4
   run:
     - __{{ noarch_platform }}
-    {% if noarch_platform == "win" %}
+    {% if noarch_platform != "win" %}
     - ptyprocess
     {% endif %}
     - python >=3.7
-    {% if noarch_platform != "win" %}
+    {% if noarch_platform == "win" %}
     - pywinpty >=1.1.0
     {% endif %}
     - tornado >=6.1.0
