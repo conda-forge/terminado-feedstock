@@ -13,3 +13,7 @@ provider:
   linux_ppc64le: azure
   win: azure
 test_on_native_only: true
+noarch_platforms:
+  - linux_64
+  - osx_64
+  - win_64
