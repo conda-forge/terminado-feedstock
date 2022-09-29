@@ -9,29 +9,36 @@ source:
   sha256: fac14374eb5498bdc157ed32e510b1f60d5c3c7981a9f5ba018bb9a64cec0c25
 
 build:
+  noarch: python
   number: 0
-  skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python >=3.7
   host:
     - hatchling >=1.5
     - pip
-    - python
+    - python >=3.7
     - tornado >=4
   run:
-    - ptyprocess  # [not win]
-    - python
-    - pywinpty >=1.1.0  # [win]
+    - __{{ noarch_platform }}
+    {% if noarch_platform == "win" %}
+    - ptyprocess
+    {% endif %}
+    - python >= 3.7
+    {% if noarch_platform != "win" %}
+    - pywinpty >=1.1.0
+    {% endif %}
     - tornado >=6.1.0
 
 test:
   requires:
+    - __{{ noarch_platform }}
     - pip
-    - posix  # [win]
+    {% if noarch_platform == "win" %}
+    - posix
+     {% endif %}
     - pytest >=6.0
     - pytest-cov
     - pytest-timeout
