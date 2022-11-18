@@ -14,6 +14,8 @@ provider:
   win: azure
 test_on_native_only: true
 noarch_platforms:
-  - linux_64
-  - osx_64
-  - win_64
+- linux_64
+- osx_64
+- win_64
+conda_build:
+  pkg_format: '2'
