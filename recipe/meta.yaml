@@ -1,4 +1,4 @@
-{% set version = "0.17.0" %}
+{% set version = "0.17.1" %}
 
 package:
   name: terminado
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: 520feaa3aeab8ad64a69ca779be54be9234edb2d0d6567e76c93c2c9a4e6e43f
+  sha256: 6ccbbcd3a4f8a25a5ec04991f39a0b8db52dfcd487ea0e578d977e6752380333
 
 build:
   noarch: python
