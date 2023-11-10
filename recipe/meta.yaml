@@ -17,8 +17,8 @@ requirements:
   host:
     - hatchling >=1.5
     - pip
-    - python >=3.7
-    - tornado >=4
+    - python >=3.8
+    - tornado >=6.1.0
   run:
     - __{{ noarch_platform }}
     {% if noarch_platform != "win" %}
@@ -40,6 +40,7 @@ test:
     - pytest >=6.0
     - pytest-cov
     - pytest-timeout
+    - pkgutil
   imports:
     - terminado
   commands:
