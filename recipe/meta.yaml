@@ -37,10 +37,9 @@ test:
     {% if noarch_platform == "win" %}
     - posix
      {% endif %}
-    - pytest >=6.0
+    - pytest >=7.0
     - pytest-cov
     - pytest-timeout
-    - pkgutil
   imports:
     - terminado
   commands:
