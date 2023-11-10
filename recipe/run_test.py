@@ -5,7 +5,6 @@
 """
 import os
 import sys
-import pkgutil
 import subprocess
 
 platform = sys.platform
