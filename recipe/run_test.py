@@ -13,10 +13,8 @@ target_platform = os.environ["target_platform"]
 py_major = sys.version_info[:2]
 pypy = "__pypy__" in sys.builtin_module_names
 
-loader = pkgutil.get_loader("terminado.tests")
-test_path = os.path.dirname(loader.path)
 pytest = [sys.executable, "-m", "pytest"]
-pytest_args = [test_path, "-vv"]
+pytest_args = [".", "-vv"]
 
 if not pypy:
     pytest_args += ["--cov", "terminado", "--no-cov-on-fail"]
