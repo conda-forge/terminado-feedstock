@@ -1,4 +1,5 @@
-{% set version = "0.17.1" %}
+{% set version = "0.18.0" %}
+{% set min_python = "python >=3.8" %}
 
 package:
   name: terminado
@@ -6,45 +7,51 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: 6ccbbcd3a4f8a25a5ec04991f39a0b8db52dfcd487ea0e578d977e6752380333
+  sha256: 1ea08a89b835dd1b8c0c900d92848147cef2537243361b2e3f4dc15df9b6fded
 
 build:
   noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
+    - {{ min_python }}
     - hatchling >=1.5
     - pip
-    - python >=3.7
-    - tornado >=4
   run:
     - __{{ noarch_platform }}
-    {% if noarch_platform != "win" %}
-    - ptyprocess
-    {% endif %}
-    - python >=3.7
-    {% if noarch_platform == "win" %}
-    - pywinpty >=1.1.0
-    {% endif %}
+    - {{ min_python }}
     - tornado >=6.1.0
+    {% if noarch_platform != "win" %}- ptyprocess{% endif %}
+    {% if noarch_platform == "win" %}- pywinpty >=1.1.0{% endif %}
 
 test:
+  files:
+    - test_of_terminado.py
+  source_files:
+    - tests
   requires:
+    # seems odd, but is needed
     - __{{ noarch_platform }}
+    # version/dependency checking
     - pip
     {% if noarch_platform == "win" %}
-    - posix
-     {% endif %}
-    - pytest >=6.0
-    - pytest-cov
+    - m2-grep
+    {% endif %}
+    # type checking
+    - mypy >=1.6,<1.7  # [unix]
+    - traitlets >=5.11.1  # [unix]
+    # test with coverage
+    - pytest >=7.0
+    - coverage
     - pytest-timeout
   imports:
     - terminado
   commands:
     # see run_test.py for more
     - pip check
+    - mypy -p terminado  # [unix]
     - pip list
     - pip list | grep -iE "terminado\s*{{ version.replace(".", "\.") }}"
 
