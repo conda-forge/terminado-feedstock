@@ -40,8 +40,8 @@ test:
     - m2-grep
     {% endif %}
     # type checking
-    - mypy >=1.6,<1.7
-    - traitlets >=5.11.1
+    - mypy >=1.6,<1.7  # [unix]
+    - traitlets >=5.11.1  # [unix]
     # test with coverage
     - pytest >=7.0
     - coverage
@@ -51,7 +51,7 @@ test:
   commands:
     # see run_test.py for more
     - pip check
-    - mypy -p terminado
+    - mypy -p terminado  # [unix]
     - pip list
     - pip list | grep -iE "terminado\s*{{ version.replace(".", "\.") }}"
 
