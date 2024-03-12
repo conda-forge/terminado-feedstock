@@ -1,4 +1,5 @@
-{% set version = "0.18.0" %}
+{% set min_python = "python >=3.8" %}
+{% set version = "0.18.1" %}
 {% set min_python = "python >=3.8" %}
 
 package:
@@ -7,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/terminado/terminado-{{ version }}.tar.gz
-  sha256: 1ea08a89b835dd1b8c0c900d92848147cef2537243361b2e3f4dc15df9b6fded
+  sha256: de09f2c4b85de4765f7714688fff57d3e75bad1f909b589fde880460c753fd2e
 
 build:
   noarch: python
