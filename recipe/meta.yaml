@@ -1,6 +1,4 @@
-{% set min_python = "python >=3.8" %}
 {% set version = "0.18.1" %}
-{% set min_python = "python >=3.8" %}
 
 package:
   name: terminado
@@ -12,20 +10,22 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - {{ min_python }}
+    - python >=3.8
     - hatchling >=1.5
     - pip
   run:
-    - __{{ noarch_platform }}
-    - {{ min_python }}
+    - python >=3.8
+    - __linux  # [linux]
+    - __osx    # [osx]
+    - __win    # [win]
     - tornado >=6.1.0
-    {% if noarch_platform != "win" %}- ptyprocess{% endif %}
-    {% if noarch_platform == "win" %}- pywinpty >=1.1.0{% endif %}
+    - ptyprocess  # [unix]
+    - pywinpty >=1.1.0  # [win]
 
 test:
   files:
@@ -33,13 +33,9 @@ test:
   source_files:
     - tests
   requires:
-    # seems odd, but is needed
-    - __{{ noarch_platform }}
     # version/dependency checking
     - pip
-    {% if noarch_platform == "win" %}
-    - m2-grep
-    {% endif %}
+    - m2-grep  # [win]
     # type checking
     - mypy >=1.6,<1.7  # [unix]
     - traitlets >=5.11.1  # [unix]
@@ -74,3 +70,4 @@ extra:
     - takluyver
     - ocefpaf
     - bollwyvl
+    - davidbrochart
