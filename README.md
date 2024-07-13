@@ -152,6 +152,7 @@ Feedstock Maintainers
 
 * [@blink1073](https://github.com/blink1073/)
 * [@bollwyvl](https://github.com/bollwyvl/)
+* [@davidbrochart](https://github.com/davidbrochart/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@pelson](https://github.com/pelson/)
 * [@takluyver](https://github.com/takluyver/)
