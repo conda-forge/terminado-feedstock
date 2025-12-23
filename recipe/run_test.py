@@ -1,19 +1,20 @@
-""" run terminado tests with pytest, including platform- and python-based skips
+"""run terminado tests with pytest, including platform- and python-based skips
 
-    this is needed because `--pyargs` is not compatible with `-k` for
-    function/method-based names
+this is needed because `--pyargs` is not compatible with `-k` for
+function/method-based names
 """
+
 import os
 import sys
 from subprocess import call
+from importlib.metadata import version
 
 
 platform = sys.platform
-target_platform = os.environ["target_platform"]
+pkg_version = os.environ["PKG_VERSION"]
 py_major = sys.version_info[:2]
-pypy = "__pypy__" in sys.builtin_module_names
 linux = platform == "linux"
-should_run_cov = linux and not pypy
+should_run_cov = linux
 cov_fail_under = 71
 
 pytest = ["pytest"]
@@ -39,9 +40,6 @@ if not linux:
         "unique_processes",
     ]
 
-if "aarch64" in target_platform:
-    skips += ["max_terminals"]
-
 if not skips:
     print("all tests will be run", flush=True)
 
@@ -60,6 +58,10 @@ def run(*args) -> int:
 
 
 def main() -> int:
+    meta_version = version("terminado")
+    assert meta_version == pkg_version, (
+        f"unexpected version: {meta_version} != {pkg_version}"
+    )
     run(*pytest, *pytest_args, "--collect-only", "-s")
 
     if should_run_cov:
