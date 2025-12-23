@@ -10,7 +10,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/t/terminado/terminado-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/t/terminado/terminado-${{ version }}.tar.gz
   sha256: de09f2c4b85de4765f7714688fff57d3e75bad1f909b589fde880460c753fd2e
 
 build:
