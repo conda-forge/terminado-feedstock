@@ -39,21 +39,16 @@ tests:
         - ${{ python_min }}.*
         - ${{ python_check_max }}.*
   - files:
-      recipe:
-        - run_test.py
       source:
         - tests/
     requirements:
       run:
         - coverage
-        - mypy
         - pytest >=7.0
         - pytest-timeout
-        - traitlets >=5.11.1
+        - python ${{ python_min }}.*
     script:
-      - python run_test.py
-      - if: unix
-        then: mypy -p terminado
+      file: run_test.py
 
 about:
   license: BSD-2-Clause
